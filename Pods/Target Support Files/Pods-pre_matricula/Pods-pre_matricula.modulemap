@@ -1,0 +1,6 @@
+framework module Pods_pre_matricula {
+  umbrella header "Pods-pre_matricula-umbrella.h"
+
+  export *
+  module * { export * }
+}
