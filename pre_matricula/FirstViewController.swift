@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import FirebaseDatabase
+import FirebaseDatabase
 
 class FirstViewController: UIViewController {
 
@@ -30,35 +30,35 @@ class FirstViewController: UIViewController {
     */
     @IBAction func btn_processar_click(_ sender: UIButton) {
         
-        let dados = Dados(aluno: "Victor", mae: "Telma", pai: "Adelmo")
-        let url = URL(string: "https://pre-matricula-fd98c.firebaseio.com/pm/")!
-        var request = URLRequest(url: url)
+        let ref = FIRDatabase.database().reference().child("pm")
+    
+        ref.observe(.value, with: { (snapshot) in
+            //print(snapshot)
+            for child in snapshot.children {
+                //print(child.value)
+            }
+        })
         
-        guard let uploadData = try? JSONEncoder().encode(dados) else {
-            return
+        /*
+        for child in snapshot.children {
+            let snap = child as! FIRDataSnapshot
+            let key = snap.key
+            let value = snap.value
+            print("oiiiiiiiiiii")
+            print("key = \(key)  value = \(value!)")
         }
+        */
+        /*
+        //Insert
+         let data = [
+            "aluno": "vic",
+            "mae"  : "telma",
+            "pai"  : "Adelmo"
+         ]
+        ref.childByAutoId().setValue(data)
+        */
         
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let task = URLSession.shared.uploadTask(with: request, from: uploadData) { data, response, error in
-            if let error = error {
-                print ("error: \(error)")
-                return
-            }
-            guard let response = response as? HTTPURLResponse,
-                (200...299).contains(response.statusCode) else {
-                    print ("server error")
-                    return
-            }
-            if let mimeType = response.mimeType,
-                mimeType == "application/json",
-                let data = data,
-                let dataString = String(data: data, encoding: .utf8) {
-                print ("got data: \(dataString)")
-            }
-        }
-        task.resume()
+
     }
     
     override func viewDidLoad() {
