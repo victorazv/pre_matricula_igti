@@ -15,6 +15,7 @@
 		574448E22128774800E7292C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 574448E02128774800E7292C /* LaunchScreen.storyboard */; };
 		71A40D0B219258B6004BB820 /* Prematricula.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A40D0A219258B6004BB820 /* Prematricula.swift */; };
 		71A705E021C331B90070F630 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A705DF21C331B90070F630 /* loginViewController.swift */; };
+		71AA262821C9CF6700CDECA7 /* TabsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AA262721C9CF6700CDECA7 /* TabsController.swift */; };
 		71F9296E2189358D00C8332F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71F9296D2189358D00C8332F /* GoogleService-Info.plist */; };
 		D7ED435ACD595DE529887DB4 /* Pods_pre_matricula.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13EA51CC02C391C64B3B4347 /* Pods_pre_matricula.framework */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 		574448E32128774800E7292C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		71A40D0A219258B6004BB820 /* Prematricula.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prematricula.swift; sourceTree = "<group>"; };
 		71A705DF21C331B90070F630 /* loginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
+		71AA262721C9CF6700CDECA7 /* TabsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
 		71F9296D2189358D00C8332F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FCF7BD67FAD1431ED8DC9AB2 /* Pods-pre_matricula.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pre_matricula.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pre_matricula/Pods-pre_matricula.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -81,6 +83,7 @@
 				574448D52128774500E7292C /* AppDelegate.swift */,
 				574448D72128774500E7292C /* FirstViewController.swift */,
 				574448D92128774500E7292C /* SecondViewController.swift */,
+				71AA262721C9CF6700CDECA7 /* TabsController.swift */,
 				71F9296D2189358D00C8332F /* GoogleService-Info.plist */,
 				574448DB2128774500E7292C /* Main.storyboard */,
 				574448DE2128774800E7292C /* Assets.xcassets */,
@@ -225,6 +228,7 @@
 				574448DA2128774500E7292C /* SecondViewController.swift in Sources */,
 				71A705E021C331B90070F630 /* loginViewController.swift in Sources */,
 				574448D62128774500E7292C /* AppDelegate.swift in Sources */,
+				71AA262821C9CF6700CDECA7 /* TabsController.swift in Sources */,
 				71A40D0B219258B6004BB820 /* Prematricula.swift in Sources */,
 				574448D82128774500E7292C /* FirstViewController.swift in Sources */,
 			);
