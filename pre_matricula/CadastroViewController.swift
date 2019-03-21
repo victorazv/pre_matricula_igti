@@ -33,18 +33,11 @@ class CadastroViewController: UIViewController {
         )
         
         pm.insertData()
-
-        // Select
         // pm.getData()
-
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // getData();
-        if let customTabBarController = self.tabBarController as? TabsController {
-            print(customTabBarController.x)
-        }
     }
 
     override func didReceiveMemoryWarning() {

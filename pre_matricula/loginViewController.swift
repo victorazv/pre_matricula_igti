@@ -16,14 +16,26 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var cpf: UITextField!
     @IBAction func btn_press(_ sender: UIButton) {
         
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let homeController = mainStoryboard.instantiateViewController(withIdentifier: "tabs") as! TabsController
-        //let vc = homeController.viewControllers![1] as! CadastroViewController
-        //vc.cpf_resp = "asdasdasd"
-        homeController.x = cpf.text ?? "";
-        appDelegate?.window?.rootViewController = homeController
+        if cpf.text?.isEmpty ?? true {
+            self.showMessage()
+        }
+        else{
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let homeController = mainStoryboard.instantiateViewController(withIdentifier: "tabs") as! TabsController
+            //let vc = homeController.viewControllers![1] as! CadastroViewController
+            //vc.cpf_resp = "asdasdasd"
+            homeController.x = cpf.text ?? "";
+            appDelegate?.window?.rootViewController = homeController
+        }
+    }
+    
+    @IBAction func showMessage() {
+        let alertController = UIAlertController(title: "Atenção", message:
+            "CPF obrigatório", preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "Fechar", style: UIAlertAction.Style.default,handler: nil))
         
+        self.present(alertController, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {

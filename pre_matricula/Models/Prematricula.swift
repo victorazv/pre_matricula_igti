@@ -8,6 +8,8 @@
 
 import Foundation
 import FirebaseDatabase
+//import Firebase
+import FirebaseFirestore
 
 class Prematricula {
     
@@ -19,9 +21,10 @@ class Prematricula {
     let telefone: String
     let serie: String
     
-    let ref = FIRDatabase.database().reference().child("pm")
+    let ref = Database.database().reference().child("pm")
+    let db = Firestore.firestore()
     
-    func createDictionary() -> NSDictionary {
+    func createDictionary() -> [String:Any] {//-> NSDictionary {
         
         let data = [
             "aluno": self.aluno,
@@ -32,19 +35,51 @@ class Prematricula {
             "serie" : self.serie
         ]
         
-        return data as NSDictionary
+        return data as [String:Any]//as NSDictionary
     }
 
     func insertData() {
         let dict = self.createDictionary()
-        self.ref.childByAutoId().setValue(dict)
+        //self.ref.childByAutoId().setValue(dict)
+        let reg = dict["aluno"] as! String
+        let pmRef = db.collection("pm")
+        pmRef.document(reg).setData(dict)
     }
     
     func getData(){
-        self.ref.observe(.value, with: { (snapshot) in
+        
+        let pmRef = db.collection("pm")
+        
+        pmRef.whereField("cpf_responsavel", isEqualTo: "05769044578")
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        //print("\(document.documentID) => \(document.data())")
+                        print(document.data()["aluno"] ?? "")
+                        //print(document.data()["serie"] ?? "")
+                    }
+                }
+        }
+        /*
+        self.db.observe(.value, with: { (snapshot) in
             for child in snapshot.children {
                 
-                let childSnapshot = child as! FIRDataSnapshot
+                let childSnapshot = child as! DataSnapshot
+                let value = childSnapshot.value as? NSDictionary
+                let pai = value?["pai"] as? String ?? ""
+                print(pai)
+            }
+        }, changeHandler: <#(Firestore, NSKeyValueObservedChange<Value>) -> Void#>)
+         */
+    }
+    
+    func getDataByCpf(cpf: String){
+        self.ref.queryOrdered(byChild: "cpf_responsavel").queryEqual(toValue: cpf).observe(.value, with: { (snapshot) in
+            for child in snapshot.children {
+                
+                let childSnapshot = child as! DataSnapshot
                 let value = childSnapshot.value as? NSDictionary
                 let pai = value?["pai"] as? String ?? ""
                 print(pai)

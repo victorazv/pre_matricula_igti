@@ -6,7 +6,7 @@ target 'pre_matricula' do
   use_frameworks!
 
   # Pods for pre_matricula
-  pod 'Firebase/Core'
   pod 'Firebase/Database'
-
+  pod 'Firebase/Core'
+  pod 'FirebaseFirestore'
 end
