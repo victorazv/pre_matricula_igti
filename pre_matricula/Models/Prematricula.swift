@@ -20,7 +20,9 @@ class Prematricula {
     let cpf_responsavel: String
     let telefone: String
     let serie: String
-    
+    var dados: NSDictionary = [:]
+    var array_dados = [[String]]()//[NSObject:AnyObject] = []
+    var i: Int = 0
     let ref = Database.database().reference().child("pm")
     let db = Firestore.firestore()
     
@@ -62,29 +64,23 @@ class Prematricula {
                     }
                 }
         }
-        /*
-        self.db.observe(.value, with: { (snapshot) in
-            for child in snapshot.children {
-                
-                let childSnapshot = child as! DataSnapshot
-                let value = childSnapshot.value as? NSDictionary
-                let pai = value?["pai"] as? String ?? ""
-                print(pai)
-            }
-        }, changeHandler: <#(Firestore, NSKeyValueObservedChange<Value>) -> Void#>)
-         */
     }
     
-    func getDataByCpf(cpf: String){
+    func getDataByCpf(cpf: String) -> [[String]] {
         self.ref.queryOrdered(byChild: "cpf_responsavel").queryEqual(toValue: cpf).observe(.value, with: { (snapshot) in
             for child in snapshot.children {
-                
                 let childSnapshot = child as! DataSnapshot
-                let value = childSnapshot.value as? NSDictionary
-                let pai = value?["pai"] as? String ?? ""
-                print(pai)
+                self.dados = childSnapshot.value as! NSDictionary
+                //self.array_dados[self.i] = self.dados
+                self.array_dados[self.i][0] = self.dados["pai"] as! String
+                self.i += 1
+                //let pai = self.dados["pai"] as? String ?? ""
+                //print(pai)
             }
         })
+        print("aaaaaaaa")
+        print(self.array_dados)
+        return array_dados;
     }
     
     init(id:String, aluno:String, mae:String, pai:String, cpf_responsavel:String, telefone:String, serie:String) {
@@ -98,3 +94,15 @@ class Prematricula {
     }
     
 }
+
+/*
+ self.db.observe(.value, with: { (snapshot) in
+ for child in snapshot.children {
+ 
+ let childSnapshot = child as! DataSnapshot
+ let value = childSnapshot.value as? NSDictionary
+ let pai = value?["pai"] as? String ?? ""
+ print(pai)
+ }
+ }, changeHandler: <#(Firestore, NSKeyValueObservedChange<Value>) -> Void#>)
+ */

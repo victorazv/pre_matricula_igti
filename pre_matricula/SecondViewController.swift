@@ -11,6 +11,16 @@ import UIKit
 class SecondViewController: UITableViewController {
 
     var cpf: String = ""
+    let pm = Prematricula(
+        id: "",
+        aluno: "",
+        mae: "",
+        pai: "",
+        cpf_responsavel: "",
+        telefone: "",
+        serie: ""
+    )
+    var dados: [[String]] = []//NSDictionary = [:]
     
     @IBOutlet var tabela: UITableView!
     
@@ -21,28 +31,24 @@ class SecondViewController: UITableViewController {
             self.cpf = customTabBarController.x
         }
         
-        let pm = Prematricula(
-            id: "",
-            aluno: "",
-            mae: "",
-            pai: "",
-            cpf_responsavel: "",
-            telefone: "",
-            serie: ""
-        )
-        pm.getData()
-        pm.getDataByCpf(cpf: self.cpf)
-        
-        
+        //pm.getData()
+        dados = pm.getDataByCpf(cpf: self.cpf)
+        print("asdasdasdasdasdadasdass")
+        print(dados)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 10
+        //return 10
+        return dados.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tabela.dequeueReusableCell(withIdentifier: "celula", for: indexPath)
-        cell.textLabel?.text = "aaaa"//data[indexPath]
+        //for registro in dados {
+            //let pai = registro["pai"] as? String ?? ""
+            //print(pai)
+        //}
+        cell.textLabel?.text = ""//dados[indexPath]!["pai"] //data[indexPath]
         print("oi negoo")
         return cell
     }
