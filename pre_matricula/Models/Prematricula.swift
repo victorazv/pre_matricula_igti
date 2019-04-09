@@ -21,9 +21,9 @@ class Prematricula {
     let telefone: String
     let serie: String
     var dados: NSDictionary = [:]
-    var array_dados = [[String]]()//[NSObject:AnyObject] = []
+    var array_dados = [QueryDocumentSnapshot]()
     var i: Int = 0
-    let ref = Database.database().reference().child("pm")
+    //let ref = Database.database().reference().child("pm")
     let db = Firestore.firestore()
     
     func createDictionary() -> [String:Any] {//-> NSDictionary {
@@ -65,22 +65,21 @@ class Prematricula {
                 }
         }
     }
-    
-    func getDataByCpf(cpf: String) -> [[String]] {
-        self.ref.queryOrdered(byChild: "cpf_responsavel").queryEqual(toValue: cpf).observe(.value, with: { (snapshot) in
-            for child in snapshot.children {
-                let childSnapshot = child as! DataSnapshot
-                self.dados = childSnapshot.value as! NSDictionary
-                //self.array_dados[self.i] = self.dados
-                self.array_dados[self.i][0] = self.dados["pai"] as! String
-                self.i += 1
-                //let pai = self.dados["pai"] as? String ?? ""
-                //print(pai)
+    // -> [[NSDictionary]]
+    func getDataByCpf(cpf: String) -> [QueryDocumentSnapshot] {
+        db.collection("pm").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                self.array_dados = querySnapshot!.documents
+                print(self.array_dados)
+                //for document in querySnapshot!.documents { print("\(document.documentID) => \(document.data())") }
             }
-        })
-        print("aaaaaaaa")
-        print(self.array_dados)
-        return array_dados;
+        }
+        return self.array_dados
+        //print("aaaaaaaa")
+        //print(self.array_dados)
+        //self.array_dados;
     }
     
     init(id:String, aluno:String, mae:String, pai:String, cpf_responsavel:String, telefone:String, serie:String) {

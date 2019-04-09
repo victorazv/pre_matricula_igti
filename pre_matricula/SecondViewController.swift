@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class SecondViewController: UITableViewController {
 
@@ -20,7 +21,9 @@ class SecondViewController: UITableViewController {
         telefone: "",
         serie: ""
     )
-    var dados: [[String]] = []//NSDictionary = [:]
+    var dados : [QueryDocumentSnapshot] = []
+    var i: Int = 0
+    let db = Firestore.firestore()
     
     @IBOutlet var tabela: UITableView!
     
@@ -30,26 +33,29 @@ class SecondViewController: UITableViewController {
         if let customTabBarController = self.tabBarController as? TabsController {
             self.cpf = customTabBarController.x
         }
-        
-        //pm.getData()
-        dados = pm.getDataByCpf(cpf: self.cpf)
-        print("asdasdasdasdasdadasdass")
-        print(dados)
+        tableView.dataSource = self
+        tableView.delegate   = self
+        //dados = pm.getDataByCpf(cpf: self.cpf)
     }
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        //return 10
-        return dados.count
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tabela.dequeueReusableCell(withIdentifier: "celula", for: indexPath)
-        //for registro in dados {
-            //let pai = registro["pai"] as? String ?? ""
-            //print(pai)
-        //}
-        cell.textLabel?.text = ""//dados[indexPath]!["pai"] //data[indexPath]
-        print("oi negoo")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "celula", for: indexPath)
+       
+        db.collection("pm").whereField("cpf_responsavel", isEqualTo: "05769044578").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    self.dados.append(document)
+                    //print("\(document.documentID) => \(document.data())")
+                }
+                cell.textLabel?.text = self.dados[indexPath.row].get("aluno") as! String
+            }
+        }
         return cell
     }
     

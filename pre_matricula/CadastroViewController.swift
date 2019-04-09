@@ -33,7 +33,6 @@ class CadastroViewController: UIViewController {
         )
         
         pm.insertData()
-        // pm.getData()
     }
     
     override func viewDidLoad() {
