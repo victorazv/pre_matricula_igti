@@ -45,7 +45,7 @@ class SecondViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "celula", for: indexPath)
        
-        db.collection("pm").whereField("cpf_responsavel", isEqualTo: "05769044578").getDocuments() { (querySnapshot, err) in
+        db.collection("pm").whereField("cpf_responsavel", isEqualTo: self.cpf).getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
